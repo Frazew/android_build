@@ -123,6 +123,7 @@ ifneq ($(strip $(LOCAL_IS_HOST_MODULE)),true)
 
     # If it gets this far enable graphite by default from here on out.
     include $(BUILD_SYSTEM)/graphite.mk
+    include $(BUILD_SYSTEM)/strict.mk
   endif
 endif
 
