@@ -97,6 +97,7 @@ else
   endif
 endif
 
+##########################################################################
 # Copyright (C) 2014-2015 The SaberMod Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -111,6 +112,7 @@ endif
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+##########################################################################
 
 # Include custom gcc flags.  Seperate them so they can be easily managed.
 
@@ -121,6 +123,9 @@ endif
 
 # O3 - use this by default
 include $(BUILD_SYSTEM)/O3.mk
+
+# Add pthread support
+include $(BUILD_SYSTEM)/pthread.mk
 
 # Do not use graphite on host modules or the clang compiler.
 ifneq ($(strip $(LOCAL_IS_HOST_MODULE)),true)
