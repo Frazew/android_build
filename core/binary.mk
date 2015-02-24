@@ -114,6 +114,11 @@ endif
 
 # Include custom gcc flags.  Seperate them so they can be easily managed.
 
+# arm thumb
+ifneq ($(strip $(LOCAL_IS_HOST_MODULE)),true)
+  include $(BUILD_SYSTEM)/thumb_interwork.mk
+endif
+
 # O3 - use this by default
 include $(BUILD_SYSTEM)/O3.mk
 
