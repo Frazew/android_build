@@ -14,7 +14,8 @@
 #
 
 LOCAL_DISABLE_PTHREAD := \
-   libc_netbsd
+   libc_netbsd \
+   libdl
 
 ifneq (1,$(words $(filter $(LOCAL_DISABLE_PTHREAD),$(LOCAL_MODULE))))
   ifdef LOCAL_CFLAGS
@@ -22,4 +23,11 @@ ifneq (1,$(words $(filter $(LOCAL_DISABLE_PTHREAD),$(LOCAL_MODULE))))
   else
     LOCAL_CFLAGS := -pthread
   endif
+
+  ifdef LOCAL_CPPFLAGS
+    LOCAL_CPPFLAGS += -pthread
+  else
+    LOCAL_CPPFLAGS := -pthread
+  endif
+
 endif

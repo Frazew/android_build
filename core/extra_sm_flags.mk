@@ -1,4 +1,4 @@
-# Copyright (C) 2014 The SaberMod Project
+# Copyright (C) 2015 The SaberMod Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,16 +13,18 @@
 # limitations under the License.
 #
 
-ifdef LOCAL_CFLAGS
-  LOCAL_CFLAGS += $(call cc-option, -fstrict-aliasing, -Wstrict-aliasing=3, -Werror=strict-aliasing)
-else
-  LOCAL_CFLAGS := $(call cc-option, -fstrict-aliasing, -Wstrict-aliasing=3, -Werror=strict-aliasing)
-endif
+EXTRA_SABERMOD_HOST_GCC_CFLAGS := \
+    -pipe \
+    -march=x86-64 \
+    -ftree-vectorize
 
-ifdef LOCAL_CPPFLAGS
-  LOCAL_CPPFLAGS += $(call cpp-option, -fstrict-aliasing, -Wstrict-aliasing=3, -Werror=strict-aliasing)
-else
-  LOCAL_CPPFLAGS := $(call cpp-option, -fstrict-aliasing, -Wstrict-aliasing=3, -Werror=strict-aliasing)
+ifeq ($(strip $(LOCAL_IS_HOST_MODULE)),true)
+  ifneq ($(strip $(LOCAL_CLANG)),true)
+    ifdef LOCAL_CFLAGS
+      LOCAL_CFLAGS += $(EXTRA_SABERMOD_HOST_GCC_CFLAGS)
+    else
+      LOCAL_CFLAGS := $(EXTRA_SABERMOD_HOST_GCC_CFLAGS)
+    endif
+  endif
 endif
-
 #####

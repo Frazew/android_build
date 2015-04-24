@@ -119,8 +119,18 @@ endif
 # O3 - use this by default
 include $(BUILD_SYSTEM)/O3.mk
 
+# Use extra HOST GCC flags
+include $(BUILD_SYSTEM)/extra_sm_flags.mk
+
 # Add pthread support
 include $(BUILD_SYSTEM)/pthread.mk
+
+# Add some extra GCC pizzaz
+ifneq ($(strip $(LOCAL_IS_HOST_MODULE)),true)
+  ifneq ($(strip $(LOCAL_CLANG)),true)
+    include $(BUILD_SYSTEM)/gcconly.mk
+  endif
+endif
 
 # Do not use graphite on host modules or the clang compiler.
 ifneq ($(strip $(LOCAL_IS_HOST_MODULE)),true)

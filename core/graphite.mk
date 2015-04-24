@@ -44,23 +44,15 @@ LOCAL_DISABLE_GRAPHITE := \
    WhisperPush \
    Eleven \
    Email \
-   libwebviewchromium \
-   libwebviewchromium_loader \
-   libwebviewchromium_plat_support \
-   unrar
-
+   unrar \
+   libc_common \
+   libncurses
 
 ifneq (1,$(words $(filter $(LOCAL_DISABLE_GRAPHITE),$(LOCAL_MODULE))))
-  ifdef LOCAL_CONLYFLAGS
-    LOCAL_CONLYFLAGS += $(GRAPHITE_FLAGS)
+  ifdef LOCAL_CFLAGS
+    LOCAL_CFLAGS += $(GRAPHITE_FLAGS)
   else
-    LOCAL_CONLYFLAGS := $(GRAPHITE_FLAGS)
-  endif
-
-  ifdef LOCAL_CPPFLAGS
-    LOCAL_CPPFLAGS += $(GRAPHITE_FLAGS)
-  else
-    LOCAL_CPPFLAGS := $(GRAPHITE_FLAGS)
+    LOCAL_CFLAGS := $(GRAPHITE_FLAGS)
   endif
 
   ifndef LOCAL_LDFLAGS
