@@ -45,7 +45,8 @@ LOCAL_DISABLE_NEST := \
 	libcrypto_static \
 	libwebviewchromium \
 	libwebviewchromium_loader \
-	libwebviewchromium_plat_support
+	libwebviewchromium_plat_support \
+	Email
 
 # Disable Bluetooth if building on arm-linux-androideabi-4.9+
 LOCAL_DISABLE_NEST += \
