@@ -34,7 +34,18 @@ LOCAL_BLUETOOTH_BLUEDROID := \
    	libbt-vendor \
    	libbluetooth_jni
 
-LOCAL_DISABLE_NEST :=
+LOCAL_DISABLE_NEST := \
+	libFraunhoferAAC \
+	libskia \
+	libstagefright \
+	libopus \
+	libart-compiler \
+	libavcodec \
+	libwebrtc_spl \
+	libcrypto_static \
+	libwebviewchromium \
+	libwebviewchromium_loader \
+	libwebviewchromium_plat_support
 
 # Disable Bluetooth if building on arm-linux-androideabi-4.9+
 LOCAL_DISABLE_NEST += \
