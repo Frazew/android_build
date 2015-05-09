@@ -48,7 +48,8 @@ LOCAL_DISABLE_NEST := \
 	libwebviewchromium_plat_support \
 	Email \
 	WhisperPush \
-	mount.exfat
+	mount.exfat \
+	TextSecureLibrary
 
 # Disable Bluetooth if building on arm-linux-androideabi-4.9+
 LOCAL_DISABLE_NEST += \
