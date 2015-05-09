@@ -22,6 +22,7 @@ GRAPHITE_FLAGS := \
    	-floop-interchange \
    	-floop-strip-mine \
    	-floop-block \
+	-ftree-parallelize-loops=4 \
    	-Wno-error=maybe-uninitialized
 
 # Force disable some modules that are not compatible with graphite flags
@@ -46,7 +47,8 @@ LOCAL_DISABLE_GRAPHITE := \
    	Email \
    	unrar \
    	libc_common \
-   	libncurses
+   	libncurses \
+	libc_netbsd
 	
 ifneq (1,$(words $(filter $(LOCAL_DISABLE_GRAPHITE),$(LOCAL_MODULE))))
   ifdef LOCAL_CFLAGS
