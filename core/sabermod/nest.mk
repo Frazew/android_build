@@ -49,7 +49,8 @@ LOCAL_DISABLE_NEST := \
 	Email \
 	WhisperPush \
 	mount.exfat \
-	TextSecureLibrary
+	TextSecureLibrary \
+	mount.exfat_static
 
 # Disable Bluetooth if building on arm-linux-androideabi-4.9+
 LOCAL_DISABLE_NEST += \
