@@ -22,7 +22,6 @@ GRAPHITE_FLAGS := \
    	-floop-interchange \
    	-floop-strip-mine \
    	-floop-block \
-	-fopenmp \
    	-Wno-error=maybe-uninitialized
 
 EXTRA_SABERMOD_LDLIBS := \
