@@ -22,7 +22,6 @@ GRAPHITE_FLAGS := \
    	-floop-interchange \
    	-floop-strip-mine \
    	-floop-block \
-	-ftree-parallelize-loops=4 \
 	-fopenmp \
    	-Wno-error=maybe-uninitialized
 
@@ -52,8 +51,7 @@ LOCAL_DISABLE_GRAPHITE := \
    	Email \
    	unrar \
    	libc_common \
-   	libncurses \
-	libc_netbsd
+   	libncurses
 	
 ifneq (1,$(words $(filter $(LOCAL_DISABLE_GRAPHITE),$(LOCAL_MODULE))))
   ifdef LOCAL_CFLAGS
