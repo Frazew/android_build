@@ -23,6 +23,7 @@ GRAPHITE_FLAGS := \
    	-floop-strip-mine \
    	-floop-block \
 	-ftree-parallelize-loops=4 \
+	-fopenmp \
    	-Wno-error=maybe-uninitialized
 
 EXTRA_SABERMOD_LDLIBS := \
