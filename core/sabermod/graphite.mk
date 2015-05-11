@@ -24,10 +24,6 @@ GRAPHITE_FLAGS := \
    	-floop-block \
    	-Wno-error=maybe-uninitialized
 
-EXTRA_SABERMOD_LDLIBS := \
-	-lgomp \
-	-lgcc
-
 # Force disable some modules that are not compatible with graphite flags
 LOCAL_DISABLE_GRAPHITE := \
    	libunwind \
@@ -59,9 +55,9 @@ ifneq (1,$(words $(filter $(LOCAL_DISABLE_GRAPHITE),$(LOCAL_MODULE))))
     LOCAL_CFLAGS := $(GRAPHITE_FLAGS)
   endif
 
-  ifdef LOCAL_LDLIBS
-    LOCAL_LDLIBS += $(EXTRA_SABERMOD_LDLIBS)
+  ifndef LOCAL_LDFLAGS
+    LOCAL_LDFLAGS  := $(GRAPHITE_FLAGS)
   else
-    LOCAL_LDLIBS := $(EXTRA_SABERMOD_LDLIBS)
+    LOCAL_LDFLAGS  += $(GRAPHITE_FLAGS)
   endif
 endif
