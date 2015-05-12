@@ -14,9 +14,9 @@
 #
 
 EXTRA_SABERMOD_HOST_GCC_CFLAGS := \
-    -pipe \
-    -march=x86-64 \
-    -ftree-vectorize
+    	-pipe \
+    	-march=x86-64 \
+    	-ftree-vectorize
 
 ifeq ($(strip $(LOCAL_IS_HOST_MODULE)),true)
   ifneq ($(strip $(LOCAL_CLANG)),true)
@@ -27,4 +27,3 @@ ifeq ($(strip $(LOCAL_IS_HOST_MODULE)),true)
     endif
   endif
 endif
-#####

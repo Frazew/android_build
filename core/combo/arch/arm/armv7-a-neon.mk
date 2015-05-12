@@ -26,7 +26,7 @@ endif
 
 arch_variant_cflags += \
     -mfloat-abi=softfp \
-    -mfpu=neon
+    -mfpu=neon-vfpv4
 
 arch_variant_ldflags := \
 	-Wl,--fix-cortex-a8

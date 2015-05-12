@@ -13,17 +13,35 @@
 # limitations under the License.
 #
 
+# Bluetooth modules should not be optimized at all in GCC4.9+
+LOCAL_BLUETOOTH_BLUEDROID := \
+	bluetooth.default \
+	libbt-brcm_stack \
+   	audio.a2dp.default \
+   	libbt-brcm_gki \
+   	libbt-utils \
+   	libbt-qcom_sbc_decoder \
+   	libbt-brcm_bta \
+   	bdt \
+   	bdtest \
+   	libbt-hci \
+   	libosi \
+   	ositests \
+   	libbt-vendor \
+   	libbluetooth_jni
+
 # Disable some modules that break with -O3
 LOCAL_DISABLE_O3 := \
-   libaudioflinger \
-   libwebviewchromium
+   	libaudioflinger
+
+# Disable Bluetooth if building on arm-linux-androideabi-4.9+
+LOCAL_DISABLE_O3 += \
+   	$(LOCAL_BLUETOOTH_BLUEDROID)
 
 O3_FLAGS := \
-   -O3 \
-   -pipe \
-   -DNDEBUG \
-   -Wno-error=array-bounds \
-   -Wno-error=strict-overflow
+   	-O3 \
+   	-Wno-error=array-bounds \
+   	-Wno-error=strict-overflow
 
 ifneq (1,$(words $(filter $(LOCAL_DISABLE_O3),$(LOCAL_MODULE))))
     ifdef LOCAL_CFLAGS
@@ -31,17 +49,12 @@ ifneq (1,$(words $(filter $(LOCAL_DISABLE_O3),$(LOCAL_MODULE))))
     else      
         LOCAL_CFLAGS := $(O3_FLAGS)
     endif
-
-    ifdef LOCAL_CONLYFLAGS
-        LOCAL_CONLYFLAGS += $(O3_FLAGS)
-    else
-        LOCAL_CONLYFLAGS := $(O3_FLAGS)
+else
+    ifneq (1,$(words $(filter $(LOCAL_BLUETOOTH_BLUEDROID),$(LOCAL_MODULE))))
+        ifdef LOCAL_CFLAGS
+            LOCAL_CFLAGS += -O2
+        else
+            LOCAL_CFLAGS := -O2
+        endif
     endif
-
-    ifdef LOCAL_CPPFLAGS
-        LOCAL_CPPFLAGS += $(O3_FLAGS)
-    else
-        LOCAL_CPPFLAGS := $(O3_FLAGS)
-    endif
-
 endif

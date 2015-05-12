@@ -13,9 +13,30 @@
 # limitations under the License.
 #
 
+# Bluetooth modules should not be optimized at all in GCC4.9+
+LOCAL_BLUETOOTH_BLUEDROID := \
+   	bluetooth.default \
+   	libbt-brcm_stack \
+   	audio.a2dp.default \
+   	libbt-brcm_gki \
+   	libbt-utils \
+   	libbt-qcom_sbc_decoder \
+   	libbt-brcm_bta \
+   	bdt \
+   	bdtest \
+   	libbt-hci \
+   	libosi \
+   	ositests \
+   	libbt-vendor \
+   	libbluetooth_jni
+
 LOCAL_DISABLE_PTHREAD := \
-   libc_netbsd \
-   libdl
+   	libc_netbsd \
+   	libdl
+
+# Disable Bluetooth if building on arm-linux-androideabi-4.9+
+LOCAL_DISABLE_PTHREAD += \
+   	$(LOCAL_BLUETOOTH_BLUEDROID)
 
 ifneq (1,$(words $(filter $(LOCAL_DISABLE_PTHREAD),$(LOCAL_MODULE))))
   ifdef LOCAL_CFLAGS
@@ -23,11 +44,4 @@ ifneq (1,$(words $(filter $(LOCAL_DISABLE_PTHREAD),$(LOCAL_MODULE))))
   else
     LOCAL_CFLAGS := -pthread
   endif
-
-  ifdef LOCAL_CPPFLAGS
-    LOCAL_CPPFLAGS += -pthread
-  else
-    LOCAL_CPPFLAGS := -pthread
-  endif
-
 endif

@@ -13,12 +13,33 @@
 # limitations under the License.
 #
 
+# Bluetooth modules should not be optimized at all in GCC4.9+
+LOCAL_BLUETOOTH_BLUEDROID := \
+   	bluetooth.default \
+   	libbt-brcm_stack \
+   	audio.a2dp.default \
+   	libbt-brcm_gki \
+   	libbt-utils \
+   	libbt-qcom_sbc_decoder \
+   	libbt-brcm_bta \
+   	bdt \
+   	bdtest \
+   	libbt-hci \
+   	libosi \
+   	ositests \
+   	libbt-vendor \
+   	libbluetooth_jni
+
 LOCAL_DISABLE_GCCONLY := \
 	libfs_mgr \
 	bluetooth.default \
 	libwebviewchromium \
 	libwebviewchromium_loader \
 	libwebviewchromium_plat_support
+
+# Disable Bluetooth if building on arm-linux-androideabi-4.9+
+LOCAL_DISABLE_GCCONLY += \
+	$(LOCAL_BLUETOOTH_BLUEDROID)
 
 GCC_FLAGS := \
 	-fira-loop-pressure \
@@ -44,64 +65,8 @@ ifneq (1,$(words $(filter $(LOCAL_DISABLE_GCCONLY), $(LOCAL_MODULE))))
   endif
 
   ifdef LOCAL_CPPFLAGS
-  LOCAL_CPPFLAGS += $(GCC_FLAGS)
+    LOCAL_CPPFLAGS += $(GCC_FLAGS)
   else
     LOCAL_CPPFLAGS := $(GCC_FLAGS)
   endif
 endif
-
-LOCAL_ENABLE_NEST := \
-	art \
-	libsigchain \
-	libart \
-	libartd \
-	libartd-compiler \
- 	libart-disassembler \
-	libartd-disassembler \
-	core.art-host \
-	core.art \
-	cpplint-art-phony \
-	libnativebridgetest \
-	libarttest \
-	art-run-tests \
-	libart-gtest \
-	libc \
-	libc_bionic \
-	libc_gdtoa \
-	libc_netbsd \
-	libc_freebsd \
-	libc_dns \
-	libc_openbsd \
-	libc_cxa \
-	libc_syscalls \
-	libc_aeabi \
-	libc_common \
-	libc_nomalloc \
-	libc_malloc \
-	libc_stack_protector \
-	libc_tzcode \
-	libstdc++ \
-	linker \
-	libdl \
-	libm \
-	tzdata \
-	bionic-benchmarks
-	
-ifeq (1,$(words $(filter $(LOCAL_ENABLE_NEST), $(LOCAL_MODULE))))
-  ifdef LOCAL_CONLYFLAGS
-    LOCAL_CONLYFLAGS += \
-	-floop-nest-optimize
-  else
-    LOCAL_CONLYFLAGS := \
-	-floop-nest-optimize
-  endif
-
-  ifdef LOCAL_CPPFLAGS
-    LOCAL_CPPFLAGS += \
-	-floop-nest-optimize
-  else
-    LOCAL_CPPFLAGS := \
-	-floop-nest-optimize
-  endif
-endif
-#####

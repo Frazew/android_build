@@ -114,35 +114,24 @@ endif
 #
 ##########################################################################
 
-# Include custom gcc flags.  Seperate them so they can be easily managed.
+include $(BUILD_SYSTEM)/sabermod/O3.mk
+include $(BUILD_SYSTEM)/sabermod/extra_sm_flags.mk
+include $(BUILD_SYSTEM)/sabermod/pthread.mk
 
-# O3 - use this by default
-include $(BUILD_SYSTEM)/O3.mk
-
-# Use extra HOST GCC flags
-include $(BUILD_SYSTEM)/extra_sm_flags.mk
-
-# Add pthread support
-include $(BUILD_SYSTEM)/pthread.mk
-
-# Add some extra GCC pizzaz
 ifneq ($(strip $(LOCAL_IS_HOST_MODULE)),true)
   ifneq ($(strip $(LOCAL_CLANG)),true)
-    include $(BUILD_SYSTEM)/gcconly.mk
+    include $(BUILD_SYSTEM)/sabermod/gcconly.mk
+    include $(BUILD_SYSTEM)/sabermod/nest.mk
+    include $(BUILD_SYSTEM)/sabermod/graphite.mk
+    include $(BUILD_SYSTEM)/sabermod/strict.mk
   endif
 endif
 
-# Do not use graphite on host modules or the clang compiler.
-ifneq ($(strip $(LOCAL_IS_HOST_MODULE)),true)
-  ifneq ($(strip $(LOCAL_CLANG)),true)
-
-    # If it gets this far enable graphite by default from here on out.
-    include $(BUILD_SYSTEM)/graphite.mk
-    include $(BUILD_SYSTEM)/strict.mk
-  endif
-endif
-
-#end SaberMod
+##########################################################################
+#
+# End SaberMod
+#
+##########################################################################
 
 # The following LOCAL_ variables will be modified in this file.
 # Because the same LOCAL_ variables may be used to define modules for both 1st arch and 2nd arch,
